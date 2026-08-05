@@ -10,7 +10,7 @@
 ### 👨‍💻 For Learners
 *   **Skill-Based Course Tracks:** Discover and enroll in courses focused on specific skill paths, consuming structured modules and video lessons.
 *   **Intelligent Task Planner:** Automatically break down complex assignments into 3-5 manageable subtasks with study timeline recommendations using LLMs.
-*   **Workload-Aware AI Scheduling:** Get personalized study planning suggestions that analyze your current task lists to prevent schedule overload.
+*   **Workload-Aware AI Scheduling:** Get personalised study planning suggestions that analyse your current task lists to prevent schedule overload.
 *   **Bi-directional Google Calendar Sync:** Sync your generated learning schedule as interactive calendar events with automatic reminders.
 *   **AI Mock Interviews:** Build professional communications skills with interactive, speech-to-text practice interviews.
 *   **Canvas LMS Integration:** Seamlessly import external university coursework and assignments directly into your planner.
@@ -119,8 +119,3 @@ Follow these steps to run the project locally:
 
 ---
 
-## 👥 Contributors (Group #12)
-*   **Nafiz Imtiaz** (ID: 2222044042)
-*   **Mahadi Hasan Nayan** (ID: 2222130042)
-
-*CSE 327 — Software Engineering (North South University)*
