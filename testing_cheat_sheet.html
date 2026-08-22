@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skill Verse — Testing Quick Reference Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #1e293b;
+      background-color: #ffffff;
+      padding: 40px;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .header {
+      border-bottom: 3px solid #3b82f6;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .badge {
+      background-color: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 4px solid #3b82f6;
+      padding-left: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      font-size: 12px;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .command-box {
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      color: #475569;
+      font-size: 12px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 12px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <div class="title">🎓 Skill Verse — Testing Quick Reference Guide</div>
+      <div class="subtitle">4 Core Levels of Software Testing: Commands, Tools & Scope</div>
+    </div>
+    <span class="badge">CSE 327 Reference</span>
+  </div>
+
+  <!-- SECTION 1: COMMANDS -->
+  <div class="section">
+    <div class="section-title">⚡ Testing Commands & Usage</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 28%;">Command</th>
+          <th style="width: 22%;">Tool Used</th>
+          <th>What It Does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>npm run test</code></td>
+          <td>Vitest</td>
+          <td>Runs all Unit & Integration tests once in the terminal. Shows quick pass/fail results.</td>
+        </tr>
+        <tr>
+          <td><code>npm run test:watch</code></td>
+          <td>Vitest Watch</td>
+          <td>Runs Unit tests in live mode. Automatically re-tests affected files instantly when you press <code>Ctrl+S</code>.</td>
+        </tr>
+        <tr>
+          <td><code>npm run test:e2e</code></td>
+          <td>Playwright</td>
+          <td>Runs System & UAT browser tests invisibly in the background across Chrome/Safari.</td>
+        </tr>
+        <tr>
+          <td><code>npm run test:e2e:ui</code></td>
+          <td>Playwright UI</td>
+          <td>Opens an interactive visual window to step through browser tests, time-travel, inspect network calls, and debug errors.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: TOOLS -->
+  <div class="section">
+    <div class="section-title">🛠 Testing Tools & Their Roles</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Vitest</div>
+        <div class="card-desc">Fast Vite-native test runner for Unit and Integration tests. Replaces legacy Jest with instant ESM execution.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Playwright</div>
+        <div class="card-desc">End-to-End browser automation framework. Simulates real users interacting with Chrome/Firefox/Safari browsers.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">React Testing Library</div>
+        <div class="card-desc">Renders React components in memory to test button clicks, inputs, and DOM output as users see them.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">jsdom</div>
+        <div class="card-desc">In-memory browser DOM emulator that allows fast unit testing without needing to launch a full web browser window.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: WHAT WE ARE TESTING -->
+  <div class="section">
+    <div class="section-title">🎯 What We Are Testing (Very Shortly)</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 20%;">Testing Level</th>
+          <th style="width: 30%;">Target Files</th>
+          <th>What Is Verified (Short Summary)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Level 1: Unit</strong></td>
+          <td><code>nbutton</code>, <code>ncard</code>, <code>ninput</code>, <code>progress</code>, <code>file-parser</code></td>
+          <td>UI rendering, variant colors, click handlers, text input changes, 100% progress indicators, and file byte calculations.</td>
+        </tr>
+        <tr>
+          <td><strong>Level 2: Integration</strong></td>
+          <td><code>auth-context</code>, <code>ai-task-prompt</code></td>
+          <td>React components interacting with Auth Context/localStorage, and AI task urgency calculations with workload context aggregation.</td>
+        </tr>
+        <tr>
+          <td><strong>Level 3: System</strong></td>
+          <td><code>system-middleware</code>, <code>landing-navigation</code></td>
+          <td>Next.js Middleware route security (blocking unauthenticated access to <code>/learner</code> and <code>/educator</code>) and landing page links.</td>
+        </tr>
+        <tr>
+          <td><strong>Level 4: UAT</strong></td>
+          <td><code>uat-user-journey</code>, <code>dashboard-loading</code></td>
+          <td>End-to-end user onboarding journey, role selection UI, and login form control integrity.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Skill Verse • Group #12 (Nafiz Imtiaz & Mahadi Hasan Nayan) • CSE 327 Software Engineering
+  </div>
+
+</body>
+</html>
