@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
 
     // Get user email
     const userEmail = user.email
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -75,14 +76,14 @@ export async function POST(req: NextRequest) {
               name: course.title,
               images: course.thumbnail_url ? [course.thumbnail_url] : [],
             },
-            unit_amount: Math.round(course.price * 100), // Convert to cents
+            unit_amount: Math.round((course.price || 0) * 100), // Convert to cents
           },
           quantity: 1,
         },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/learner/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/learner/checkout?course=${courseId}&canceled=true`,
+      success_url: `${baseUrl}/learner/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/learner/checkout?course=${courseId}&canceled=true`,
       client_reference_id: courseId, // Store course ID for later reference
       customer_email: userEmail,
       metadata: {
@@ -100,4 +101,3 @@ export async function POST(req: NextRequest) {
     )
   }
 }
-
