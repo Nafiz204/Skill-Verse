@@ -20,13 +20,7 @@ export async function GET(request: NextRequest) {
 
     let query = supabase
       .from('canvas_assignments')
-      .select(`
-        *,
-        canvas_courses!canvas_assignments_canvas_course_id_fkey (
-          name,
-          course_code
-        )
-      `)
+      .select('*')
       .eq('user_id', user.id)
       .order('due_at', { ascending: true, nullsFirst: false })
 
@@ -48,8 +42,19 @@ export async function GET(request: NextRequest) {
       throw error
     }
 
-    // Filter by due date status
-    let filteredAssignments = assignments || []
+    // Fetch user courses for course details mapping
+    const { data: userCourses } = await supabase
+      .from('canvas_courses')
+      .select('canvas_course_id, name, course_code')
+      .eq('user_id', user.id)
+
+    const courseMap = new Map(userCourses?.map(c => [c.canvas_course_id, c]) || [])
+
+    let filteredAssignments = (assignments || []).map(a => ({
+      ...a,
+      canvas_courses: courseMap.get(a.canvas_course_id) || { name: 'Canvas Course', course_code: 'CANVAS' }
+    }))
+
     const now = new Date()
 
     if (status === 'upcoming') {

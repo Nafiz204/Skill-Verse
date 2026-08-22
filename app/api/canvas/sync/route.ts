@@ -123,15 +123,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Initialize Canvas service
-    let canvasService
-    try {
-      canvasService = createCanvasService({
-        canvasUrl: connection.canvas_url,
-        accessToken: connection.access_token,
-      })
-    } catch {
-      // Ignore
-    }
+    const canvasService = createCanvasService({
+      canvasUrl: connection.canvas_url,
+      accessToken: connection.access_token,
+    })
 
     const syncResults = {
       courses: 0,
@@ -143,7 +138,7 @@ export async function POST(request: NextRequest) {
 
     // 1. Sync Courses
     try {
-      const courses = await canvasService?.getCourses()
+      const courses = await canvasService.getCourses()
       
       if (courses && Array.isArray(courses)) {
         for (const course of courses) {

@@ -75,7 +75,8 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    let { canvasUrl, accessToken } = body
+    const accessToken = body.accessToken
+    let canvasUrl = body.canvasUrl
 
     if (!canvasUrl || !accessToken) {
       return NextResponse.json({ 
@@ -88,7 +89,12 @@ export async function POST(request: NextRequest) {
     if (!canvasUrl.startsWith('http://') && !canvasUrl.startsWith('https://')) {
       canvasUrl = `https://${canvasUrl}`
     }
-    canvasUrl = canvasUrl.replace(/\/$/, '')
+    try {
+      const parsedUrl = new URL(canvasUrl)
+      canvasUrl = `${parsedUrl.protocol}//${parsedUrl.host}`
+    } catch {
+      canvasUrl = canvasUrl.replace(/\/$/, '')
+    }
 
     // Check for Demo Mode connection
     let isDemoMode = accessToken.toLowerCase().includes('demo') || 

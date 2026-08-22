@@ -216,7 +216,10 @@ export default function SettingsPage() {
   }
 
   const handleCanvasConnect = async () => {
-    if (!canvasUrl || !canvasToken) {
+    const cleanUrl = canvasUrl.trim()
+    const cleanToken = canvasToken.trim()
+
+    if (!cleanUrl || !cleanToken) {
       setCanvasError('Please provide both Canvas URL and access token')
       return
     }
@@ -228,7 +231,7 @@ export default function SettingsPage() {
       const response = await fetch('/api/canvas/connect', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ canvasUrl, accessToken: canvasToken }),
+        body: JSON.stringify({ canvasUrl: cleanUrl, accessToken: cleanToken }),
       })
 
       const data = await response.json()

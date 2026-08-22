@@ -20,13 +20,7 @@ export async function GET(request: NextRequest) {
 
     let query = supabase
       .from('canvas_announcements')
-      .select(`
-        *,
-        canvas_courses!canvas_announcements_canvas_course_id_fkey (
-          name,
-          course_code
-        )
-      `)
+      .select('*')
       .eq('user_id', user.id)
       .order('posted_at', { ascending: false })
 
@@ -53,9 +47,22 @@ export async function GET(request: NextRequest) {
       throw error
     }
 
+    // Fetch user courses for course details mapping
+    const { data: userCourses } = await supabase
+      .from('canvas_courses')
+      .select('canvas_course_id, name, course_code')
+      .eq('user_id', user.id)
+
+    const courseMap = new Map(userCourses?.map(c => [c.canvas_course_id, c]) || [])
+
+    const announcementsWithCourses = (announcements || []).map(a => ({
+      ...a,
+      canvas_courses: courseMap.get(a.canvas_course_id) || { name: 'Canvas Course', course_code: 'CANVAS' }
+    }))
+
     return NextResponse.json({
-      announcements: announcements || [],
-      count: announcements?.length || 0,
+      announcements: announcementsWithCourses,
+      count: announcementsWithCourses.length,
     })
   } catch (error: any) {
     console.error('Error fetching Canvas announcements:', error)

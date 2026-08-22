@@ -127,15 +127,28 @@ export class CanvasAPIService {
   /**
    * Get all courses for the current user
    */
+  /**
+   * Get all courses for the current user
+   */
   async getCourses(): Promise<CanvasCourse[]> {
     try {
+      // Include active and completed courses without restrictive enrollment_state filter
       const courses = await this.request<CanvasCourse[]>(
-        '/courses?enrollment_state=active&include[]=total_students&include[]=teachers&per_page=100'
+        '/courses?include[]=total_students&include[]=teachers&include[]=term&per_page=100'
       )
-      return courses
+      return courses || []
     } catch (error) {
       console.error('Error fetching Canvas courses:', error)
-      throw error
+      // Fallback query if /courses fails
+      try {
+        const fallbackCourses = await this.request<CanvasCourse[]>(
+          '/users/self/courses?per_page=100'
+        )
+        return fallbackCourses || []
+      } catch (fallbackError) {
+        console.error('Fallback course fetch failed:', fallbackError)
+        throw error
+      }
     }
   }
 
@@ -202,17 +215,22 @@ export class CanvasAPIService {
    */
   async getCourseAnnouncements(courseId: string): Promise<CanvasAnnouncement[]> {
     try {
-      const announcements = await this.request<CanvasAnnouncement[]>(
-        `/courses/${courseId}/discussion_topics?only_announcements=true&per_page=100`
+      // Try dedicated announcements API first
+      let announcements = await this.request<CanvasAnnouncement[]>(
+        `/announcements?context_codes[]=course_${courseId}&per_page=100`
       )
+
+      if (!announcements || announcements.length === 0) {
+        // Fallback to discussion topics
+        announcements = await this.request<CanvasAnnouncement[]>(
+          `/courses/${courseId}/discussion_topics?only_announcements=true&per_page=100`
+        )
+      }
       
-      // Log to help debug
       console.log(`Fetched ${announcements?.length || 0} announcements for course ${courseId}`)
-      
       return announcements || []
     } catch (error) {
       console.error(`Error fetching announcements for course ${courseId}:`, error)
-      // Return empty array instead of throwing to continue with other courses
       return []
     }
   }
@@ -231,7 +249,6 @@ export class CanvasAPIService {
           allAnnouncements.push(...announcements)
         } catch (error) {
           console.error(`Failed to fetch announcements for course ${course.id}:`, error)
-          // Continue with other courses even if one fails
         }
       }
 
@@ -250,10 +267,11 @@ export class CanvasAPIService {
    */
   async getEnrollments(): Promise<CanvasEnrollment[]> {
     try {
+      // include[]=grades is MANDATORY for Canvas to include grades object
       const enrollments = await this.request<CanvasEnrollment[]>(
-        '/users/self/enrollments?state[]=active&per_page=100'
+        '/users/self/enrollments?state[]=active&state[]=completed&include[]=grades&per_page=100'
       )
-      return enrollments
+      return enrollments || []
     } catch (error) {
       console.error('Error fetching enrollments:', error)
       throw error
