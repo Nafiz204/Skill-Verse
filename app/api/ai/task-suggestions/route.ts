@@ -110,7 +110,7 @@ Be specific to the task title and course subject matter.`
         "X-Title": "Skill Verse"
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-3.3-70b-instruct:free",
+        model: "meta-llama/llama-3.3-70b-instruct",
         messages: [
           {
             role: "system",

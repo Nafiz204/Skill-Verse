@@ -103,7 +103,7 @@ Generate questions that will help students validate their understanding of the k
         "X-Title": "Skill Verse - Educator AI"
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-3.3-70b-instruct:free",
+        model: "meta-llama/llama-3.3-70b-instruct",
         messages: [
           {
             role: "system",

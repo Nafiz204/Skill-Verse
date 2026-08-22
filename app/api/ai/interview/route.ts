@@ -85,7 +85,7 @@ Begin the interview with a professional greeting and your first question based o
           "X-Title": "Skill Verse - AI Interview"
         },
         body: JSON.stringify({
-          model: "meta-llama/llama-3.3-70b-instruct:free",
+          model: "meta-llama/llama-3.3-70b-instruct",
           messages: [
             {
               role: "system",
@@ -169,7 +169,7 @@ Remember: Keep it conversational and natural, like a real interviewer.`
           "X-Title": "Skill Verse - AI Interview"
         },
         body: JSON.stringify({
-          model: "meta-llama/llama-3.3-70b-instruct:free",
+          model: "meta-llama/llama-3.3-70b-instruct",
           messages: [
             {
               role: "system",
@@ -316,7 +316,7 @@ Provide comprehensive feedback for this interview performance.`
           "X-Title": "Skill Verse - AI Interview Feedback"
         },
         body: JSON.stringify({
-          model: "meta-llama/llama-3.3-70b-instruct:free",
+          model: "meta-llama/llama-3.3-70b-instruct",
           messages: [
             {
               role: "system",

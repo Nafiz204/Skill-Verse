@@ -104,7 +104,7 @@ IMPORTANT: Return ONLY the JSON object above. Do not include any other text or f
 Make the course practical, engaging, and market-ready. Consider current industry trends and learner needs.`
 
     // Call OpenRouter API
-    console.log("Calling OpenRouter API with model:", "meta-llama/llama-3.3-70b-instruct:free")
+    console.log("Calling OpenRouter API with model:", "meta-llama/llama-3.3-70b-instruct")
     
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -115,7 +115,7 @@ Make the course practical, engaging, and market-ready. Consider current industry
         "X-Title": "Skill Verse - Educator AI"
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-3.3-70b-instruct:free",
+        model: "meta-llama/llama-3.3-70b-instruct",
         messages: [
           {
             role: "system",
