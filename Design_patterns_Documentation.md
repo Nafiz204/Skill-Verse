@@ -1,7 +1,8 @@
-# 📐 Software Design Patterns Documentation (Full Version)
+# 📐 Software Design Patterns Documentation (with Code Snippets)
 **Project:** Skill Verse — LMS with Intelligent Task Planner  
-**Course:** CSE 327 Software Engineering | North South University  
-**Authors:** Group #12 (Nafiz Imtiaz & Mahadi Hasan Nayan)
+**Course:** CSE 327 Software Engineering  
+**University:** North South University  
+**Authors:** Group #12 (Nafiz Imtiaz [2222044042] & Mahadi Hasan Nayan [2222130042])  
 
 ---
 
