@@ -47,10 +47,7 @@ Both implement a unified `createClient()` interface factory function.
 ### 📐 Class Diagram
 ```mermaid
 classDiagram
-    class SupabaseFactory {
-        <<interface>>
-        +createClient()
-    }
+    class SupabaseFactory
     class BrowserClientFactory {
         +createClient() BrowserClient
     }
@@ -153,14 +150,14 @@ Defines a one-to-many dependency between objects so that when one object changes
 ### 📐 Sequence Diagram
 ```mermaid
 sequenceDiagram
-    participant DB as PostgreSQL Database
-    participant Realtime as Supabase Realtime Server
-    participant React as React UI Component (Observer)
+    participant DB as Database
+    participant Realtime as Supabase Realtime
+    participant React as React UI
 
-    React->>Realtime: Subscribe ('postgres_changes', table='canvas_assignments')
-    DB->>Realtime: Table Row Updated / Inserted
+    React->>Realtime: Subscribe to Table Events
+    DB->>Realtime: PostgreSQL Row Inserted or Updated
     Realtime-->>React: Notify Event Payload
-    React->>React: Execute Observer Callback (fetchData & re-render)
+    React->>React: Execute Observer Callback
 ```
 
 ### 💻 Code Snippet — [`app/learner/canvas/assignments/page.tsx`](file:///c:/Users/Nafiz%20Imtiaz/Desktop/lms_with_intelligent_task_planner-master/app/learner/canvas/assignments/page.tsx#L62-L87)
@@ -209,19 +206,16 @@ Enables selecting an algorithm or execution strategy at runtime without altering
 ```mermaid
 classDiagram
     class AITeachingAssistantContext {
-        +mode: ModeType
+        +mode: string
         +handleExecute()
     }
     class StrategyCourseOutline {
-        +endpoint: /api/ai/educator/course-outline
         +execute()
     }
     class StrategyContentEnhancer {
-        +endpoint: /api/ai/educator/content-enhancer
         +execute()
     }
     class StrategyAssessmentGenerator {
-        +endpoint: /api/ai/educator/assessment-generator
         +execute()
     }
 
@@ -415,13 +409,13 @@ In Next.js middleware ([`middleware.ts`](file:///c:/Users/Nafiz%20Imtiaz/Desktop
 ### 📐 Chain Flow Diagram
 ```mermaid
 flowchart TD
-    Req[Incoming HTTP Request] --> AuthCheck{Is User Logged In?}
-    AuthCheck -- No & Protected Route --> RedirAuth[Redirect /auth]
-    AuthCheck -- Yes --> RoleCheck{Has Role?}
-    RoleCheck -- No --> RedirRole[Redirect /auth/select-role]
-    RoleCheck -- Yes --> AuthzCheck{Matches Route Role?}
-    AuthzCheck -- Role Mismatch --> RedirDash[Redirect Learner/Educator Dashboard]
-    AuthzCheck -- Authorized --> Pass[Pass Next Response]
+    Req["Incoming Request"] --> AuthCheck{"Authenticated?"}
+    AuthCheck -- "No" --> RedirAuth["Redirect to /auth"]
+    AuthCheck -- "Yes" --> RoleCheck{"Role Assigned?"}
+    RoleCheck -- "No" --> RedirRole["Redirect to /auth/select-role"]
+    RoleCheck -- "Yes" --> AuthzCheck{"Authorized Route?"}
+    AuthzCheck -- "No" --> RedirDash["Redirect Dashboard"]
+    AuthzCheck -- "Yes" --> Pass["Pass Next Response"]
 ```
 
 ### 💻 Code Snippet — [`middleware.ts`](file:///c:/Users/Nafiz%20Imtiaz/Desktop/lms_with_intelligent_task_planner-master/middleware.ts#L54-L89)
